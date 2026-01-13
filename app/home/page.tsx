@@ -50,7 +50,7 @@ export default function HomePage() {
               <div className="absolute -left-16 top-1/2 h-px w-12 bg-gradient-to-r from-transparent to-foreground/20" />
               <div className="absolute -right-16 top-1/2 h-px w-12 bg-gradient-to-l from-transparent to-foreground/20" />
               <h1 className="font-mono text-5xl font-black leading-none tracking-tighter md:text-7xl lg:text-8xl">
-                KALI-YUGA:
+                5xFaction:
                 <br />
                 <span className="text-muted-foreground">THE LAST INK</span>
               </h1>
@@ -84,7 +84,7 @@ export default function HomePage() {
       <section className="border-t border-border py-20">
         <div className="container mx-auto px-4">
           <h2 className="mb-12 text-center font-mono text-3xl font-black tracking-tighter md:text-4xl">
-            WHY KALI-YUGA?
+            WHY 5xFaction?
           </h2>
           <div className="grid gap-6 md:grid-cols-3">
             <Card className="border-2 border-border p-6">
@@ -145,7 +145,7 @@ export default function HomePage() {
       <footer className="border-t border-border py-10">
         <div className="container mx-auto px-4">
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            <div className="font-mono text-sm text-muted-foreground">© 2025 KALI-YUGA Protocol. Built on Arbitrum.</div>
+            <div className="font-mono text-sm text-muted-foreground">© 2025 5xFaction Protocol. Built on Arbitrum.</div>
             <div className="flex gap-4">
               <Link href="/docs" className="font-mono text-sm hover:text-foreground">
                 Documentation

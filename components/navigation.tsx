@@ -5,10 +5,12 @@ import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
 import { useState } from "react"
+import { usePrivy } from "@privy-io/react-auth"
 
 export function Navigation() {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
+  const { login, logout, authenticated, user } = usePrivy()
 
   const links = [
     { href: "/home", label: "HOME" },
@@ -16,6 +18,12 @@ export function Navigation() {
     { href: "/docs", label: "DOCS" },
     { href: "/portfolio", label: "PORTFOLIO" },
   ]
+
+  const shortenAddress = (address: string) => {
+    return `${address.slice(0, 6)}...${address.slice(-4)}`
+  }
+
+  const walletAddress = user?.wallet?.address
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
@@ -27,10 +35,9 @@ export function Navigation() {
                 <path d="M20 50 L50 20 L80 50 L50 80 Z" fill="white" />
               </svg>
             </div>
-            <span className="font-mono text-lg font-bold tracking-tighter">KALI-YUGA</span>
+            <span className="font-mono text-lg font-bold tracking-tighter">5xFaction</span>
           </Link>
 
-          {/* Desktop Navigation */}
           <div className="hidden items-center gap-1 md:flex">
             {links.map((link) => (
               <Link key={link.href} href={link.href}>
@@ -39,16 +46,27 @@ export function Navigation() {
                 </Button>
               </Link>
             ))}
-            <Button className="ml-4 font-mono text-xs">CONNECT WALLET</Button>
+            {authenticated ? (
+              <div className="ml-4 flex items-center gap-2">
+                <span className="font-mono text-xs text-muted-foreground">
+                  {walletAddress && shortenAddress(walletAddress)}
+                </span>
+                <Button variant="outline" className="font-mono text-xs" onClick={logout}>
+                  DISCONNECT
+                </Button>
+              </div>
+            ) : (
+              <Button className="ml-4 font-mono text-xs" onClick={login}>
+                CONNECT WALLET
+              </Button>
+            )}
           </div>
 
-          {/* Mobile Menu Button */}
           <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? <X /> : <Menu />}
           </Button>
         </div>
 
-        {/* Mobile Navigation */}
         {isOpen && (
           <div className="border-t border-border py-4 md:hidden">
             <div className="flex flex-col gap-2">
@@ -62,7 +80,20 @@ export function Navigation() {
                   </Button>
                 </Link>
               ))}
-              <Button className="mt-2 w-full font-mono text-xs">CONNECT WALLET</Button>
+              {authenticated ? (
+                <div className="mt-2 space-y-2">
+                  <div className="px-3 font-mono text-xs text-muted-foreground">
+                    {walletAddress && shortenAddress(walletAddress)}
+                  </div>
+                  <Button variant="outline" className="w-full font-mono text-xs" onClick={logout}>
+                    DISCONNECT
+                  </Button>
+                </div>
+              ) : (
+                <Button className="mt-2 w-full font-mono text-xs" onClick={login}>
+                  CONNECT WALLET
+                </Button>
+              )}
             </div>
           </div>
         )}
