@@ -1,101 +1,105 @@
-# KALI-YUGA: THE LAST INK
+# 5xFaction Frontend
 
-**KALI-YUGA** is a revolutionary no-loss DeFi protocol built on **Arbitrum** that transforms yield farming into an epic strategic battle. Enter the ultimate arena where five legendary factions battle for yield dominance.
+Frontend for **5xFaction Protocol** — a no-loss DeFi protocol on Arbitrum where five factions battle for yield dominance.
 
-> **Pure Strategy. No Luck. Just Skill.**
+## Pages & Features
 
-## 🌌 The Concept
+| Page          | Route        | Description                                                                                                |
+| ------------- | ------------ | ---------------------------------------------------------------------------------------------------------- |
+| **Home**      | `/home`      | Landing page with hero section, concept explanation, and 5 factions showcase                               |
+| **Arena**     | `/arena`     | Main staking page: choose faction, deposit USDC, view real-time TVL & scores, deposit/lock phase countdown |
+| **Portfolio** | `/portfolio` | User dashboard: view active stakes, USDC balance, history, and manage positions                            |
+| **Docs**      | `/docs`      | Full documentation: Pentagon Nash Equilibrium mechanics, FAQ, and tutorials                                |
 
-Unlike traditional gambling or trading, your principal (deposited USDC) remains **100% safe** at all times. All deposits are routed to **Aave V3** to generate yield. The "battle" is for this generated yield.
+## Smart Contract Integration
 
-Players choose one of five factions to back. At the end of every 24-hour epoch, the winning faction—determined by the **Pentagon Nash Equilibrium**—takes 100% of the yield pot.
+Frontend integrates with **5xFaction** smart contract on Arbitrum:
 
-## ⚔️ The Five Factions
+| Feature      | Contract Function     | Description                                 |
+| ------------ | --------------------- | ------------------------------------------- |
+| Join Faction | `joinClan(clan)`      | Join one of the 5 factions                  |
+| Stake        | `stakeInk(amount)`    | Deposit USDC for staking                    |
+| Withdraw     | `withdrawInk(amount)` | Withdraw USDC from pool                     |
+| Clear Canvas | `clearCanvas()`       | Trigger new epoch (when current epoch ends) |
+| View TVL     | `getAllClanTVLs()`    | Get total TVL per faction                   |
+| View Scores  | `getAllScores()`      | Get competition score per faction           |
 
-The arena is governed by a cycle of five elements, each defeating two others and being defeated by two others:
+## Tech Stack
 
-| Faction | Element | Role | Archetype |
-|:---:|:---:|:---:|:---:|
-| **KAGE** | Shadow | Assassin | *The Neon Syndicate* |
-| **STEEL** | Blade | Samurai | *The Iron Path* |
-| **GHOST** | Spirit | Phantom | *The Ethereal Order* |
-| **MONK** | Pillar | Guardian | *The Mountain Sect* |
-| **WIND** | Arrow | Marksman | *The Sky Covenant* |
+| Category   | Technology              |
+| ---------- | ----------------------- |
+| Framework  | Next.js 16 (App Router) |
+| Language   | TypeScript              |
+| Styling    | Tailwind CSS 4          |
+| Components | shadcn/ui + Radix UI    |
+| Icons      | Lucide React            |
+| Web3       | wagmi + viem            |
+| Auth       | Privy                   |
+| State      | TanStack React Query    |
 
-## 📐 Game Mechanics: Pentagon Nash Equilibrium
-
-Victory is not random. It is calculated.
-
-**Score = (Target TVL) - (Predator TVL)**
-
--   **Target TVL**: Total Value Locked in the two factions your faction *defeats*.
--   **Predator TVL**: Total Value Locked in the two factions that *defeat* your faction.
-
-This creates a dynamic metagame where the strongest faction can become the most vulnerable if its predators grow too large.
-
-## 🛠️ Technology Stack
-
-This project is built with a modern, performance-first stack:
-
--   **Framework**: [Next.js 16](https://nextjs.org/) (App Router)
--   **Language**: [TypeScript](https://www.typescriptlang.org/)
--   **Styling**: [Tailwind CSS](https://tailwindcss.com/)
--   **Components**: [shadcn/ui](https://ui.shadcn.com/) (Radix UI)
--   **Icons**: [Lucide React](https://lucide.dev/)
--   **Animations**: CSS Animations & Transitions
-
-## 🚀 Getting Started
+## Installation
 
 ### Prerequisites
 
--   Node.js 18+
--   npm, yarn, or pnpm
+- Node.js 18+
+- pnpm / npm / yarn
 
-### Installation
+### Setup
 
-1.  **Clone the repository**
-    ```bash
-    git clone https://github.com/your-username/kali-yuga.git
-    cd kali-yuga
-    ```
+```bash
+# Clone repository
+git clone https://github.com/5xFaction/FrontEnd.git
+cd FrontEnd
 
-2.  **Install dependencies**
-    ```bash
-    npm install
-    # or
-    yarn install
-    ```
+# Install dependencies
+pnpm install
 
-3.  **Run the development server**
-    ```bash
-    npm run dev
-    ```
+# Setup environment
+cp .env.example .env
+# Edit .env with appropriate values
 
-4.  **Open the app**
-    Navigate to [http://localhost:3000](http://localhost:3000) to view the application.
+# Run development server
+pnpm dev
+```
 
-## 📂 Project Structure
+App will be running at [http://localhost:3000](http://localhost:3000)
+
+### Environment Variables
+
+| Variable                   | Description                            |
+| -------------------------- | -------------------------------------- |
+| `NEXT_PUBLIC_PRIVY_APP_ID` | Privy App ID for wallet authentication |
+
+## Folder Structure
 
 ```
-kali-yuga/
+FrontEnd/
 ├── app/                  # Next.js App Router
-│   ├── arena/            # Arena / Betting Page
-│   ├── docs/             # Documentation Page
-│   ├── home/             # Landing Page
-│   ├── portfolio/        # User Dashboard
-│   ├── layout.tsx        # Root Layout
-│   └── globals.css       # Global Styles
-├── components/           # React Components
-│   ├── ui/               # Reusable UI components (buttons, cards, etc.)
-│   ├── faction-showcase.tsx # Hero interaction component
-│   └── navigation.tsx    # Main navbar
-└── public/               # Static assets
+│   ├── arena/           # Arena page
+│   ├── docs/            # Documentation page
+│   ├── home/            # Landing page
+│   ├── portfolio/       # Portfolio page
+│   ├── globals.css      # Global styles
+│   └── layout.tsx       # Root layout
+├── components/          # React components
+│   ├── ui/              # shadcn/ui components
+│   ├── navigation.tsx   # Navbar
+│   └── faction-showcase.tsx
+├── hooks/               # Custom React hooks
+│   └── useContract.ts   # Contract interaction hooks
+└── lib/                 # Utilities & configs
+    └── contracts/       # ABI & addresses
 ```
 
-## 📜 License
+## Scripts
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+| Command      | Description            |
+| ------------ | ---------------------- |
+| `pnpm dev`   | Run development server |
+| `pnpm build` | Build for production   |
+| `pnpm start` | Run production server  |
+| `pnpm lint`  | Run ESLint             |
 
----
+## License
 
-*“Enter the cycle. Break the wheel. Claim the ink.”*
+MIT License
