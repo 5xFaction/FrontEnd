@@ -30,11 +30,7 @@ export function Navigation() {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           <Link href="/home" className="flex items-center gap-2">
-            <div className="h-8 w-8 border-2 border-foreground bg-foreground">
-              <svg viewBox="0 0 100 100" className="h-full w-full">
-                <path d="M20 50 L50 20 L80 50 L50 80 Z" fill="white" />
-              </svg>
-            </div>
+            <img src="/logo.webp" alt="5xFaction Logo" className="h-8 w-8" />
             <span className="font-mono text-lg font-bold tracking-tighter">5xFaction</span>
           </Link>
 
